@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.alshuk</groupId>
-    <artifactId>wheather</artifactId>
+    <artifactId>weather</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>wheather</name>
-    <description>wheather</description>
+    <name>weather</name>
+    <description>weather</description>
     <properties>
         <java.version>21</java.version>
     </properties>
@@ -51,6 +51,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.15.2</version>
         </dependency>
     </dependencies>
 
