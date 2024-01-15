@@ -12,11 +12,22 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="card w-25 m-1">
-            <div class="card-body">
-                <h4 class="card-title" th:text="${'Weather in ' + city_name}">City name</h4>
-                <p th:text="${'Average temperature: ' + average_temperature + ' °С.'}">Average temperature</p>
-            </div>
-            <input type="button" class="btn btn-primary" onclick="history.back();" value="Enter another city"/>
+            <th:block th:if = "${message == null}">
+                <div class="card-body">
+                    <h4 class="card-title" th:text="${city_name}">City name</h4>
+                    <div>
+                        <span th:text="#{periodAverageTemperature}"></span>
+                        <span th:text="${': ' + average_temperature + ' °С.'}">Average temperature</span>
+                    </div>
+                    <input type="button" class="btn btn-primary" onclick="history.back();" th:value="#{enterAnotherCityBTN}"/>
+                </div>
+            </th:block>
+            <th:block th:if = "${message != null}">
+                <div class="card-body">
+                    <p th:text="${message}">Message</p>
+                    <input type="button" class="btn btn-primary" onclick="history.back();" th:value="#{enterAnotherDateBTN}"/>
+                </div>
+            </th:block>
         </div>
     </div>
 </div>

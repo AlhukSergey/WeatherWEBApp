@@ -1,9 +1,8 @@
 package com.alshuk.weather.controllers;
 
 import com.alshuk.weather.domain.City;
-import com.alshuk.weather.domain.PeriodWeatherSearchForm;
+import com.alshuk.weather.domain.WeatherSearchForm;
 import com.alshuk.weather.enums.PagesPathEnum;
-import com.alshuk.weather.exceptions.BadRequestException;
 import com.alshuk.weather.exceptions.CityNotFoundException;
 import com.alshuk.weather.services.WeatherService;
 import jakarta.validation.Valid;
@@ -30,19 +29,24 @@ public class Controller {
         return new ModelAndView(PagesPathEnum.HOME_PAGE.getPath());
     }
 
+    @GetMapping("/international")
+    public ModelAndView getInternationalPage() {
+        return new ModelAndView(PagesPathEnum.HOME_PAGE.getPath());
+    }
+
     @PostMapping("/current")
-    public ModelAndView getCurrentWeather(@Valid City city, BindingResult bindingResult, ModelAndView modelAndView) throws CityNotFoundException, BadRequestException {
+    public ModelAndView getCurrentWeather(@Valid City city, BindingResult bindingResult, ModelAndView modelAndView) throws CityNotFoundException {
         if (bindingResult.hasErrors()) {
             populateError("name", modelAndView, bindingResult);
             modelAndView.setViewName(PagesPathEnum.HOME_PAGE.getPath());
             return modelAndView;
         }
 
-        return service.getInfo(city);
+        return service.getLastWeather(city);
     }
 
     @PostMapping("/period")
-    public ModelAndView getPeriodWeather(@Valid PeriodWeatherSearchForm form, BindingResult bindingResult, ModelAndView modelAndView) throws CityNotFoundException, BadRequestException {
+    public ModelAndView getPeriodWeather(@Valid WeatherSearchForm form, BindingResult bindingResult, ModelAndView modelAndView) throws CityNotFoundException {
         if (bindingResult.hasErrors()) {
             populateError("name", modelAndView, bindingResult);
             populateError("from", modelAndView, bindingResult);
@@ -51,7 +55,7 @@ public class Controller {
             return modelAndView;
         }
 
-        return service.getInfo(form);
+        return service.getAverageTemperature(form);
     }
 
     private void populateError(String field, ModelAndView modelAndView, BindingResult bindingResult) {

@@ -13,17 +13,38 @@
     <div class="row justify-content-center">
         <div class="card w-25 m-1">
             <div class="card-body">
-                <h4 class="card-title" th:text="${'Weather in ' + city_name}">City name</h4>
-                <p th:text="${'Weather: ' + weather + '.'}">Weather</p>
+                <h4 class="card-title" th:text="${city_name}">City name</h4>
+                <div>
+                    <span th:text="#{currentWeather}"></span>
+                    <span th:text="${': ' + weather + '.'}">Current weather</span>
+                </div>
                 <img class="card-img" style="min-height:100px" th:src="${icon}" alt="Card image">
-                <p th:text="${'Characteristic: ' + characteristic + '.'}">Characteristic</p>
-                <p th:text="${'Temperature: ' + temperature + ' °С.'}">Temperature</p>
-                <p th:text="${'Humidity: ' + humidity + ' %.'}">Humidity</p>
-                <p th:text="${'Pressure: ' + pressure + ' hPa.'}">Pressure</p>
-                <p th:text="${'Visibility: ' + visibility + ' km.'}">Visibility</p>
-                <p th:text="${'Speed of wind: ' + wind_speed + ' m/s.'}">WindSpeed</p>
+                <div>
+                    <span th:text="#{currentCharacteristic}"></span>
+                    <span th:text="${': '+ characteristic + '.'}">Characteristic</span>
+                </div>
+                <div>
+                    <span th:text="#{currentTemperature}"></span>
+                    <span th:text="${': ' + temperature + ' °С.'}">Temperature</span>
+                </div>
+                <div>
+                    <span th:text="#{currentHumidity}"></span>
+                    <span th:text="${': ' + humidity + ' %.'}">Humidity</span>
+                </div>
+                <div>
+                    <span th:text="#{currentPressure}"></span>
+                    <span th:text="${': ' + pressure + ' hPa.'}">Pressure</span>
+                </div>
+                <div>
+                    <span th:text="#{currentVisibility}"></span>
+                    <span th:text="${': ' + visibility + ' m.'}">Visibility</span>
+                </div>
+                <div>
+                    <span th:text="#{windSpeed}"></span>
+                    <span th:text="${': ' + wind_speed + ' m/s.'}">WindSpeed</span>
+                </div>
             </div>
-            <input type="button" class="btn btn-primary" onclick="history.back();" value="Enter another city"/>
+            <input type="button" class="btn btn-primary" onclick="history.back();" th:value="#{enterAnotherCityBTN}"/>
         </div>
     </div>
 </div>

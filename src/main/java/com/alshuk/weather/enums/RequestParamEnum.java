@@ -14,7 +14,8 @@ public enum RequestParamEnum {
     VISIBILITY("visibility"),
     WIND_SPEED("wind_speed"),
     ERROR("error"),
-    AVERAGE_TEMPERATURE("average_temperature");
+    AVERAGE_TEMPERATURE("average_temperature"),
+    MESSAGE("message");
 
     private final String value;
 

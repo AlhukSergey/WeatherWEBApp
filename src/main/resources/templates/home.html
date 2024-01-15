@@ -11,41 +11,61 @@
 <body>
 <div class="container">
     <div class="col-md-8 offset-md-4">
-        <h4>Current weather</h4>
-        <p>Enter city name:</p>
+        <h4 th:text="#{currentWeatherHeader}">Current weather</h4>
+        <p th:text="#{currentWeatherParagraph}">Enter city name: (Minsk, Moscow, London, Paris)</p>
         <form method="POST" action="/home/current">
             <div class="form-group">
-                <label for="current-weather-city-name">City:</label>
+                <label for="current-weather-city-name" th:text="#{currentWeatherFormLabel}">City:</label>
                 <input type="text" class="form-control w-25" id="current-weather-city-name" placeholder="City name"
                        name="name">
                 <span class="error" th:text="${nameError}">Error</span>
             </div>
-            <button id="current-form-btn" type="submit" class="btn btn-primary">Submit</button>
+            <button id="current-form-btn" type="submit" class="btn btn-primary" th:text="#{submit}">Submit</button>
         </form>
     </div>
     <div class="col-md-8 offset-md-4">
-        <h4>Period weather</h4>
-        <p>Enter city name:</p>
+        <h4 th:text="#{periodWeatherHeader}">Period weather</h4>
+        <p th:text="#{periodWeatherParagraph}">Enter city name:</p>
         <form method="POST" action="/home/period">
             <div class="form-group">
-                <label for="period-weather-city-name">City:</label>
+                <label for="period-weather-city-name" th:text="#{periodWeatherFormNameLabel}">City:</label>
                 <input type="text" class="form-control w-25" id="period-weather-city-name" placeholder="City name"
                        name="name">
                 <span class="error" th:text="${nameError}">Error</span>
             </div>
             <div class="form-group">
-                <label for="from">From:</label>
+                <label for="from" th:text="#{periodWeatherFormStartLabel}">From:</label>
                 <input type="date" class="form-control w-25" id="from" name="from">
                 <span class="error" th:text="${fromError}">Error</span>
             </div>
             <div class="form-group">
-                <label for="to">To:</label>
+                <label for="to" th:text="#{periodWeatherFormEndLabel}">To:</label>
                 <input type="date" class="form-control w-25" id="to" name="to">
                 <span class="error" th:text="${toError}">Error</span>
             </div>
-            <button id="period-form-btn" type="submit" class="btn btn-primary">Submit</button>
+            <button id="period-form-btn" type="submit" class="btn btn-primary" th:text="#{submit}">Submit</button>
         </form>
     </div>
+    <span th:text="#{lang.change}"></span>:
+    <select id="locales">
+        <option value=""></option>
+        <option value="eng" th:text="#{lang.eng}"></option>
+        <option value="fr" th:text="#{lang.fr}"></option>
+        <option value="ru" th:text="#{lang.ru}"></option>
+    </select>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#locales").change(function () {
+            let selectedOption = $('#locales').val();
+            if (selectedOption != ''){
+                window.location.replace('?lang=' + selectedOption);
+            }
+        });
+    });
+</script>
 </body>
 </html>

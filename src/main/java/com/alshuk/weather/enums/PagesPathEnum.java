@@ -14,5 +14,4 @@ public enum PagesPathEnum {
     PagesPathEnum(String path) {
         this.path = path;
     }
-
 }
