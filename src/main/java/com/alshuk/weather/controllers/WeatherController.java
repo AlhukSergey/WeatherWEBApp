@@ -1,15 +1,20 @@
 package com.alshuk.weather.controllers;
 
-import com.alshuk.weather.domain.City;
-import com.alshuk.weather.domain.WeatherSearchForm;
+import com.alshuk.weather.domain.DTO.CityDTO;
+import com.alshuk.weather.domain.DTO.WeatherSearchForm;
 import com.alshuk.weather.enums.PagesPathEnum;
 import com.alshuk.weather.exceptions.CityNotFoundException;
-import com.alshuk.weather.services.WeatherService;
+import com.alshuk.weather.exceptions.WeatherExportException;
+import com.alshuk.weather.services.WeatherDBService;
+import com.alshuk.weather.services.WeatherExportService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,12 +22,10 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("/home")
-public class Controller {
-    private final WeatherService service;
-
-    public Controller(WeatherService service) {
-        this.service = service;
-    }
+@RequiredArgsConstructor
+public class WeatherController {
+    private final WeatherDBService weatherDBService;
+    private final WeatherExportService exportService;
 
     @GetMapping
     public ModelAndView openHomePage() {
@@ -35,14 +38,14 @@ public class Controller {
     }
 
     @PostMapping("/current")
-    public ModelAndView getCurrentWeather(@Valid City city, BindingResult bindingResult, ModelAndView modelAndView) throws CityNotFoundException {
+    public ModelAndView getCurrentWeather(@Valid CityDTO city, BindingResult bindingResult, ModelAndView modelAndView) throws CityNotFoundException {
         if (bindingResult.hasErrors()) {
             populateError("name", modelAndView, bindingResult);
             modelAndView.setViewName(PagesPathEnum.HOME_PAGE.getPath());
             return modelAndView;
         }
 
-        return service.getLastWeather(city);
+        return weatherDBService.getLastWeather(city);
     }
 
     @PostMapping("/period")
@@ -55,7 +58,12 @@ public class Controller {
             return modelAndView;
         }
 
-        return service.getAverageTemperature(form);
+        return weatherDBService.getAverageTemperature(form);
+    }
+
+    @PostMapping("/export")
+    public void exportCityWeather(HttpServletResponse response, @RequestParam("name") String cityName) throws WeatherExportException, CityNotFoundException {
+        exportService.exportToFile(response, cityName);
     }
 
     private void populateError(String field, ModelAndView modelAndView, BindingResult bindingResult) {

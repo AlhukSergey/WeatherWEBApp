@@ -1,4 +1,4 @@
-package com.alshuk.weather.domain;
+package com.alshuk.weather.domain.DTO;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

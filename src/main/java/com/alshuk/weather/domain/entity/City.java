@@ -1,4 +1,4 @@
-package com.alshuk.weather.domain;
+package com.alshuk.weather.domain.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -7,8 +7,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,8 +23,6 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class City extends BaseEntity {
-    @NotBlank(message = "The field must be filled in!")
-    @Size(min = 2, message = "At least two characters!")
     @Column(name = "name")
     private String name;
 

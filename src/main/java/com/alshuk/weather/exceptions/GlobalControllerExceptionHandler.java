@@ -27,4 +27,11 @@ public class GlobalControllerExceptionHandler {
         return new ModelAndView(PagesPathEnum.ERROR_PAGE.getPath(), modelMap);
     }
 
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(WeatherExportException.class)
+    public ModelAndView handlerExportException(Exception ex) {
+        ModelMap modelMap = new ModelMap();
+        modelMap.addAttribute(RequestParamEnum.ERROR.getValue(), ex.getMessage());
+        return new ModelAndView(PagesPathEnum.ERROR_PAGE.getPath(), modelMap);
+    }
 }

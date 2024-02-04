@@ -1,4 +1,4 @@
-package com.alshuk.weather.domain;
+package com.alshuk.weather.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
